@@ -18,5 +18,7 @@ private:
 	int controllerID = -1;
 	bool controllerConnected = false;
 	sf::RectangleShape square;
+	sf::RectangleShape projectile;
+	sf::Vector2f direction;
 };
 

@@ -53,9 +53,9 @@ void Menu::update(float dt)
 		}
 	}
 	
-	//X is lef stick right to left. Y is left stick up and down. U is righ stick left and right. V is right up and down
+	//X is lef stick right to left. Y is left stick up and down. U is righ stick left and right. V is right up and down. Z is for R&LT
 	if (controllerConnected) {
-		float xPos = sf::Joystick::getAxisPosition(controllerID, sf::Joystick::X) * 100.f;
+		/*float xPos = sf::Joystick::getAxisPosition(controllerID, sf::Joystick::X) * 100.f;
 		xPos = std::round(xPos);
 		xPos = xPos / 100;
 
@@ -63,17 +63,36 @@ void Menu::update(float dt)
 		yPos = std::round(yPos);
 		yPos = yPos / 100;
 
-		sf::Vector2f newPos = square.getPosition() + (VectorHelper::normalise(sf::Vector2f(xPos, yPos)) * 0.2f);
-		square.setPosition(newPos);
+		sf::Vector2f newPos = square.getPosition() + VectorHelper::normalise(sf::Vector2f(xPos, yPos) * 0.002f);
+		square.move(sf::Vector2f(xPos, yPos) * 0.002f);*/
+		/*for (int i = 0; i <= 31;i++) {
+			if (sf::Joystick::isButtonPressed(controllerID, i)) {
+				std::cout << "Button " << i << " is the one you pressed ";
+				
+			}
+
+		}*/
+		if (sf::Joystick::getAxisPosition(controllerID, sf::Joystick::Axis::Z) < -90.f ){
+			
+			direction = VectorHelper::normalise(sf::Vector2f(sf::Joystick::getAxisPosition(controllerID, sf::Joystick::Axis::U), sf::Joystick::getAxisPosition(controllerID, sf::Joystick::Axis::V)));
+			projectile.setFillColor(sf::Color::Black);
+			projectile.setPosition(square.getPosition());
+			projectile.setOutlineColor(sf::Color::Black);
+			projectile.setSize(sf::Vector2f(5.f, 5.f));
+		}
+		projectile.move(direction);
+		}
+	
 	}
 	
 	
-}
+
 
 void Menu::render()
 {
 	beginDraw();
 	window->draw(Background);
 	window->draw(square);
+	window->draw(projectile);
 	endDraw();
 }
