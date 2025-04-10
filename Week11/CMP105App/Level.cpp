@@ -20,7 +20,7 @@ Level::~Level()
 // handle user input
 void Level::handleInput(float dt)
 {
-	if (input->isPressed(sf::Keyboard::Escape)) {
+	/*if (input->isPressed(sf::Keyboard::Escape)) {
 		gameState->setCurrentState(State::MENU);
 		std::cout << "\n Escape pressed.";
 	}
@@ -36,20 +36,22 @@ void Level::handleInput(float dt)
 			gameState->setCurrentState(State::LEVEL);
 		}
 
-	}
+	}*/
 }
 
 // Update game objects
 void Level::update(float dt)
 {
-	
+	if (sf::Joystick::isConnected(0)) {
+		std::cout << "This works!\n";
+	}
 }
 
 // Render level
 void Level::render()
 {
 	beginDraw();
-	window->draw(box);
+	/*window->draw(box);*/
 
 	endDraw();
 }

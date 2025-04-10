@@ -6,6 +6,7 @@ Menu::Menu(sf::RenderWindow* hwnd, Input* in, GameState* gs, AudioManager* aud)
 	input = in;
 	gameState = gs;
 	audio = aud;
+	
 
 	// initialise game objects
 	audio->addMusic("sfx/cantina.ogg", "cantina");
@@ -31,8 +32,22 @@ void Menu::handleInput(float dt)
 
 void Menu::update(float dt)
 {
-	Background.setSize(sf::Vector2f(window->getSize()));
-
+	if (!controllerConnected) {
+		for (int i = 0; i <= 7; i++) {
+			if (sf::Joystick::isConnected(i)) {
+				controllerID = i;
+				controllerConnected = true;
+				break;
+			}
+		}
+	}
+	else {
+		if (!sf::Joystick::isConnected(controllerID)) {
+			controllerID = -1;
+			controllerConnected = false;
+		}
+	}
+	
 }
 
 void Menu::render()

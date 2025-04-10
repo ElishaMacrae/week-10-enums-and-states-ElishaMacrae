@@ -14,6 +14,7 @@ public:
 private:
 	// Default variables for level class.
 	sf::RectangleShape Background;
-
+	int controllerID = -1;
+	bool controllerConnected = false;
 };
 
