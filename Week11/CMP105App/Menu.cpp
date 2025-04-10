@@ -12,6 +12,11 @@ Menu::Menu(sf::RenderWindow* hwnd, Input* in, GameState* gs, AudioManager* aud)
 	audio->addMusic("sfx/cantina.ogg", "cantina");
 	Background.setFillColor(sf::Color::Green);
 	Background.setPosition(0, 0);
+
+	square.setFillColor(sf::Color::Blue);
+	square.setPosition(window->getSize().x / 2, window->getSize().y / 2);
+	square.setOutlineColor(sf::Color::Black);
+	square.setSize(sf::Vector2f(50.f, 50.f));
 }
 
 Menu::~Menu()
@@ -48,11 +53,27 @@ void Menu::update(float dt)
 		}
 	}
 	
+	//X is lef stick right to left. Y is left stick up and down. U is righ stick left and right. V is right up and down
+	if (controllerConnected) {
+		float xPos = sf::Joystick::getAxisPosition(controllerID, sf::Joystick::X) * 100.f;
+		xPos = std::round(xPos);
+		xPos = xPos / 100;
+
+		float yPos = sf::Joystick::getAxisPosition(controllerID, sf::Joystick::Y) * 100.f;
+		yPos = std::round(yPos);
+		yPos = yPos / 100;
+
+		sf::Vector2f newPos = square.getPosition() + (VectorHelper::normalise(sf::Vector2f(xPos, yPos)) * 0.2f);
+		square.setPosition(newPos);
+	}
+	
+	
 }
 
 void Menu::render()
 {
 	beginDraw();
 	window->draw(Background);
+	window->draw(square);
 	endDraw();
 }

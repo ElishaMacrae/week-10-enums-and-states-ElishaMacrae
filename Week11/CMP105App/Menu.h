@@ -1,5 +1,6 @@
 #pragma once
 #include "Framework/BaseLevel.h"
+#include "Framework/VectorHelper.h"
 class Menu :
     public BaseLevel
 {
@@ -16,5 +17,6 @@ private:
 	sf::RectangleShape Background;
 	int controllerID = -1;
 	bool controllerConnected = false;
+	sf::RectangleShape square;
 };
 
